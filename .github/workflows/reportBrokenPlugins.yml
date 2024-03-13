@@ -37,11 +37,11 @@ jobs:
               id: cache-chromium
               with:
                 path: /usr/bin/chromium-browser
-                key: 85.0.4183.83-0ubuntu2.22.04.1
+                key: 1:85.0.4183.83-0ubuntu2.22.04.1
 
             - name: Install Chromium
               if: steps.cache-chromium.outputs.cache-hit != 'true'
-              run: sudo apt-get install -y chromium-browser=85.0.4183.83-0ubuntu2.22.04.1
+              run: sudo apt-get install -y chromium-browser=1:85.0.4183.83-0ubuntu2.22.04.1
 
             - name: Build web
               run: pnpm buildWeb --standalone --dev
