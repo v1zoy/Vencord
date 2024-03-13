@@ -51,6 +51,7 @@ jobs:
               run: |
                   export PATH="$PWD/node_modules/.bin:$PATH"
                   export CHROMIUM_BIN=$(which chromium-browser)
+                  echo "CHROMIUM_BIN=$CHROMIUM_BIN"
 
                   esbuild scripts/generateReport.ts > dist/report.mjs
                   node dist/report.mjs >> $GITHUB_STEP_SUMMARY
