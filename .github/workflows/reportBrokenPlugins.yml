@@ -8,7 +8,7 @@ on:
 jobs:
     TestPlugins:
         if: github.repository == 'Vendicated/Vencord'
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-latest
 
         steps:
             - uses: actions/checkout@v3
@@ -32,16 +32,11 @@ jobs:
                   pnpm install --frozen-lockfile
                   pnpm add puppeteer
 
-            - name: Cache Chromium
-              uses: actions/cache@v4
-              id: cache-chromium
-              with:
-                path: /usr/bin/chromium-browser
-                key: 1:85.0.4183.83-0ubuntu2.22.04.1
-
             - name: Install Chromium
-              if: steps.cache-chromium.outputs.cache-hit != 'true'
-              run: sudo apt-get install -y chromium-browser=1:85.0.4183.83-0ubuntu2.22.04.1
+              uses: awalsh128/cache-apt-pkgs-action@a6c3917cc929dd0345bfb2d3feaf9101823370ad # v1.4.2
+              with:
+                packages: chromium-browser
+                version: 1.0
 
             - name: Build web
               run: pnpm buildWeb --standalone --dev
